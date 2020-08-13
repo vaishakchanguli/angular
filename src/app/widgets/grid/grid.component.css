@@ -2,7 +2,15 @@
   width: 100%;
   height:100%;
 }
-.grid>.header, .grid>.rows{
+.grid>.header{
   display: flex;
   flex-direction: row;
+}
+.grid>.rows{
+  display: flex;
+  flex-direction: column;
+}
+
+.grid>.header .header-row{
+  flex:1;
 }

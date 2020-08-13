@@ -1,8 +1,16 @@
 
 <div class='grid'>
   <div class='header'>
-    <div *ngFor="let column in options.columns">{{column.field}}</div>
+    <div class='header-row'
+        *ngFor="let column of options.columns">
+        {{column.displayName}}
+    </div>
   </div>
-  <div class='rows'></div>
+  <div class='rows'>
+     <div *ngFor="let column of options.columns">
+        <div *ngFor="let row of data">{{row[column.field]}}</div>
+    </div>
+ 
+  </div>
 
 </div>
