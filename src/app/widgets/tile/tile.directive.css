@@ -1,0 +1,73 @@
+.compact-tile-layout{
+width: 270px;
+height: 100%;
+}
+
+.tile-container{
+  width:270px;
+  height: 110px;
+  background: lightgray;
+  border-bottom: 1px solid white;
+}
+.tile-image{
+  height: 45%;
+  width:25%;
+  float:left;
+  overflow: hidden;
+  
+}
+.tile-image>i{
+  display: block;
+  padding: 10px;
+font-size: 40px;
+}
+
+.tile-title{
+  height:45%;
+  width: 75%;
+  float: right;
+  overflow: hidden;
+}
+
+.tile-title .title{
+  font-size: 16px;
+  font-weight: bold;
+  display: inline-block;
+  text-align:center;
+  width:90%;
+  padding:8px;
+  height: 30%;
+}
+.tile-title .description{
+font-size:14px;
+display: inline-block;
+  text-align:center;
+  width:90%;
+  padding:0 8px 0 8px;
+  height: 30%;
+}
+
+.tile-properties{
+  clear:both;
+  height: 55%;
+  margin:8px;
+  font-size:14px;
+}
+
+.tile-properties .properties{
+display: flex;
+flex-direction: row;
+}
+.tile-properties .properties .prop-name{
+flex:30%;
+overflow: hidden;
+text-overflow: ellipsis;
+}
+
+.tile-properties .properties .prop-val{
+flex:70%;
+overflow: hidden;
+text-overflow: ellipsis;
+}
+
+

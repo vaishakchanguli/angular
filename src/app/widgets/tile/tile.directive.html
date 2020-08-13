@@ -1,0 +1,24 @@
+<div class="compact-tile-layout">
+	<div *ngFor="let tile of tiles">
+		<div class="tile-container">
+			<div class="tile-image">
+				<i class="fa fa-cogs"></i>
+			</div>
+			<div class="tile-title">
+				<span class="title">{{tile[tileOptions?.titleField]}}</span>
+				<span class="description">	{{tile[tileOptions?.descriptionField]}}</span>
+			</div>
+			<div class="tile-properties">
+			        <ng-template ngFor let-properties [ngForOf]="tileOptions.properties" let-i="index" [ngForTrackBy]="trackById">
+          <div class="properties">
+          <span class="prop-name">{{properties?.displayName}}</span>
+					<span class="prop-val">{{tile[properties?.field]}}</span>
+          </div>
+</ng-template>
+			</div>
+		</div>
+
+
+
+	</div>
+</div>
