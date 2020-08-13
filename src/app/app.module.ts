@@ -6,10 +6,11 @@ import {DataService} from './services/data.service';
 
 import { AppComponent } from './app.component';
 import { TileComponent } from './widgets/tile/tile.directive';
+import { GridComponent } from './widgets/grid/grid.component';
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule, HttpClientModule ],
-  declarations: [ AppComponent, TileComponent ],
+  declarations: [ AppComponent, TileComponent, GridComponent],
   providers:[DataService],
   bootstrap:    [ AppComponent ]
 })
