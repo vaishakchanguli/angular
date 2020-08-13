@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
     obs.subscribe(observer);
   }
 
-  public options = {
+  public tileOptions = {
     titleField: "first_name",
     descriptionField: "id",
     properties: [
@@ -34,6 +34,15 @@ export class AppComponent implements OnInit {
       { field: "ip_address", displayName: "IP Address" }
     ]
   };
+
+  public gridOptions = {
+columns: [
+      {field: "gender",displayName: "Gender"},
+      { field: "email", displayName: "Email" },
+      { field: "ip_address", displayName: "IP Address" }
+    ]
+  };
+
   public addData() {
     console.log("add data");
     //this.companyData = [... this.companyData]
