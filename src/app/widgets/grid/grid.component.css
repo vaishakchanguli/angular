@@ -3,14 +3,13 @@
   height:100%;
 }
 .grid>.header{
-  display: flex;
-  flex-direction: row;
+ width: 100%;
 }
 .grid>.rows{
-  display: flex;
-  flex-direction: column;
+  width: 100%;
 }
 
 .grid>.header .header-row{
-  flex:1;
+  float: left;
+  
 }

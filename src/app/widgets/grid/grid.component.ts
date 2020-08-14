@@ -1,13 +1,27 @@
-import {Component, Input} from '@angular/core'
+import {Component, Input, ElementRef, Renderer2, AfterViewInit} from '@angular/core'
 
 @Component({
 selector: 'grid', 
 templateUrl: './grid.component.html',
 styleUrls:['./grid.component.css']
 })
-export class GridComponent{
-@Input() data:any[];
-@Input() options:any;  
+export class GridComponent implements OnInit, AfterViewInit{
+@Input() data:Array<Object>;
+@Input() options:any;
 
-constructor(){}
+constructor(private elRef: ElementRef, private rendered: Renderer2){}
+
+ngOnInit(){
+    //this.setDimenstions();
+}
+ ngAfterViewInit() {
+     this.setDimenstions();
+  }
+private setDimenstions(){
+let parentWidth = this.elRef.nativeElement.parentElement.offsetWidth;
+let columns = 
+this.rendered;
+debugger;
+}
+
 }

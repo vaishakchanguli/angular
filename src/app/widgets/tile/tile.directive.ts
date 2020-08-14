@@ -14,8 +14,8 @@ import {
   templateUrl: "./tile.directive.html"
 })
 export class TileComponent implements OnInit, OnChanges, DoCheck {
-  @Input() tiles: any[];
-  @Input() tileOptions: any;
+  @Input() tiles: Array<Object>;
+  @Input() tileOptions: Object;
 
   constructor() {}
 
@@ -37,7 +37,7 @@ export class TileComponent implements OnInit, OnChanges, DoCheck {
       this.tileOptions["titleField"] = "title";
     }
     if (!this.tileOptions.hasOwnProperty("descriptionField")) {
-      this.tileOptions["hasOwnProperty"] = "description";
+      this.tileOptions["descriptionField"] = "description";
     }
   }
 }
