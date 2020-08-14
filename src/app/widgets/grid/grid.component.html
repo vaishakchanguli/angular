@@ -5,11 +5,9 @@
 
 		</div>
 	</div>
-	<div class='rows'>
-		<div *ngFor="let row of data">
-			<div *ngFor="let column of options.columns">
-				<div>{{row[column.field]}}</div>
-			</div>
+	<div class='rows' *ngFor="let row of data">
+		<div class='row-item' *ngFor="let column of options.columns">
+			{{row[column.field]}}
 		</div>
 	</div>
 

@@ -11,7 +11,7 @@ import {
   templateUrl: "./grid.component.html",
   styleUrls: ["./grid.component.css"]
 })
-export class GridComponent implements OnInit, AfterViewInit {
+export class GridComponent implements OnInit, AfterViewInit, AfterViewChecked {
   @Input() data: Array<Object>;
   @Input() options: any;
 
@@ -20,15 +20,16 @@ export class GridComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     //this.setDimenstions();
   }
-  ngAfterViewInit() {
+  ngAfterViewChecked() {
     this.setDefaultDimenstions();
   }
 
   private setDefaultDimenstions() {
-    let parentWidth = this.elRef.nativeElement.parentElement.offsetWidth - 17;
+    let parentWidth = this.elRef.nativeElement.parentElement.offsetWidth;
     let columns = this.options.columns.length || 0;
     let columnsDefaultLength = Math.floor(parentWidth / columns);
-    //set default width
+
+    //set default header item width
     let headerItems: HTMLCollection = this.elRef.nativeElement.getElementsByClassName(
       "header-item"
     );
@@ -36,6 +37,14 @@ export class GridComponent implements OnInit, AfterViewInit {
       this.renderer.setStyle(item, "width", columnsDefaultLength + "px");
     }
 
-    debugger;
+    //set default row item width
+    let rowItems: HTMLCollection = this.elRef.nativeElement.getElementsByClassName(
+      "row-item"
+    );
+    if (rowItems.length) {
+      for (let item of rowItems) {
+        this.renderer.setStyle(item, "width", columnsDefaultLength + "px");
+      }
+    }
   }
 }
