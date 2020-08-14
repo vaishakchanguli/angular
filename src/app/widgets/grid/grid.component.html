@@ -7,10 +7,11 @@
     </div>
   </div>
   <div class='rows'>
+     <div *ngFor="let row of data">
      <div *ngFor="let column of options.columns">
-        <div *ngFor="let row of data">{{row[column.field]}}</div>
+        <div>{{row[column.field]}}</div>
     </div>
- 
+     </div>
   </div>
 
 </div>
