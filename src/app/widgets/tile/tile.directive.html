@@ -9,12 +9,13 @@
 				<span class="description">	{{tile[tileOptions?.descriptionField]}}</span>
 			</div>
 			<div class="tile-properties">
-			        <ng-template ngFor let-properties [ngForOf]="tileOptions.properties" let-i="index" [ngForTrackBy]="trackById">
-          <div class="properties">
-          <span class="prop-name">{{properties?.displayName}}</span>
-					<span class="prop-val">{{tile[properties?.field]}}</span>
-          </div>
-</ng-template>
+				<ng-template ngFor let-properties [ngForOf]="tileOptions.properties" let-i="index"
+					[ngForTrackBy]="trackById">
+					<div class="properties">
+						<span class="prop-name">{{properties?.displayName}}</span>
+						<span class="prop-val">{{tile[properties?.field]}}</span>
+					</div>
+				</ng-template>
 			</div>
 		</div>
 

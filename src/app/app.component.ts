@@ -29,15 +29,15 @@ export class AppComponent implements OnInit {
     titleField: "first_name",
     descriptionField: "id",
     properties: [
-      {field: "gender",displayName: "Gender"},
+      { field: "gender", displayName: "Gender" },
       { field: "email", displayName: "Email" },
       { field: "ip_address", displayName: "IP Address" }
     ]
   };
 
   public gridOptions = {
-columns: [
-      {field: "gender",displayName: "Gender"},
+    columns: [
+      { field: "gender", displayName: "Gender" },
       { field: "email", displayName: "Email" },
       { field: "ip_address", displayName: "IP Address" }
     ]
