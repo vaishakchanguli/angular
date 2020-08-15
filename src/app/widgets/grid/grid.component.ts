@@ -25,7 +25,8 @@ export class GridComponent implements DoCheck {
   onResize(event) {
     console.log("grid resize");
     this.firstLoad = false;
-    this.setDefaultDimenstions();
+    let parentDimension = this.getParentDimension(this.elRef.nativeElement.parentElement);
+    this.setDefaultDimensions(parentDimension);
   }
 
   ngOnInit() {
@@ -40,22 +41,28 @@ export class GridComponent implements DoCheck {
   ngAfterViewChecked() {
     console.log("grid viewChecked");
     if (this.firstLoad) {
-      this.setDefaultDimenstions();
+      let parentDimension = this.getParentDimension(this.elRef.nativeElement.parentElement);
+      this.setDefaultDimensions(parentDimension);
     }
   }
 
-  private setDefaultDimenstions() {
-    let parentWidth = this.getParentDimension(this.elRef.nativeElement.parentElement);
+  private setDefaultDimensions(parentDimension) {
+    
+    let parentWidth =parentDimension.width;
+    let parentHeight =parentDimension.height;
     let SCROLL_BAR = 17;
     let hasVerticalScrollbar =
       this.gridRef.nativeElement.scrollHeight >
       this.gridRef.nativeElement.clientHeight;
     if (hasVerticalScrollbar) {
-      parentWidth = parentWidth - SCROLL_BAR;
+      parentWidth = parentWidth  - SCROLL_BAR;
     }
 
     let columns = this.options.columns.length || 0;
     let columnsDefaultLength = Math.floor(parentWidth / columns);
+
+    //set Height
+    this.renderer.setStyle(this.gridRef.nativeElement, "width", columnsDefaultLength + "px");
 
     //set default header item width
     let headerItems: HTMLCollection = this.elRef.nativeElement.getElementsByClassName(
@@ -92,7 +99,10 @@ export class GridComponent implements DoCheck {
       parseFloat(computedStyle.borderTopWidth) +
       parseFloat(computedStyle.borderBottomWidth);
 
-    // Element width minus padding and border
-    return element.offsetWidth - paddingX - borderX;
+    // Element width and height minus padding and border
+    return {
+      width :element.offsetWidth - paddingX - borderX,
+      height: element.offsetHeight - paddingY - borderY
+    }
   }
 }
