@@ -8,19 +8,20 @@
 .grid>.header{
  width: 100%;
  height: 20px;
-   overflow: auto;
+   overflow: hidden;
+   background: #1174a0;
 }
 
 .grid>.body{
   width: 100%;
   height: 100%;
-  overflow: auto;
-  
+  overflow: auto;  
 }
+
 .grid>.body>.rows{
   width: 100%;
   height: 24px;
-
+border-bottom: 0.5px solid white;
 }
 
 .grid>.header .header-item{

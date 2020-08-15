@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, OnInit } from "@angular/core";
+import { Component, ChangeDetectionStrategy, OnInit, HostListener } from "@angular/core";
 import { DataService } from "./services/data.service";
 import { Observable } from "rxjs";
 
@@ -9,7 +9,18 @@ import { Observable } from "rxjs";
 })
 export class AppComponent implements OnInit {
   public companyData: any[];
-  constructor(private dataService: DataService) {}
+  public viewHeight : Number = 0;
+
+   @HostListener("window:resize", ["$event"])
+  onResize(event) {
+    console.log("app component resize");   
+    this.viewHeight = window.innerHeight;
+  }
+
+  constructor(private dataService: DataService) {   
+    this.viewHeight= window.innerHeight;
+  }
+
 
   ngOnInit() {
     let observer = {

@@ -1,12 +1,13 @@
 .compact-tile-layout{
 width: 270px;
 height: 100%;
+overflow: auto;
 }
 
 .tile-container{
   width:270px;
   height: 110px;
-  background: lightgray;
+  background:#1174a0;
   border-bottom: 1px solid white;
 }
 .tile-image{

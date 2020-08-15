@@ -45,13 +45,13 @@ export class GridComponent implements DoCheck {
   }
 
   private setDefaultDimenstions() {
-    let parentWidth =0;
+    let parentWidth = this.getParentDimension(this.elRef.nativeElement.parentElement);
     let SCROLL_BAR = 17;
-    let hasVerticalScrollbar = this.gridRef.nativeElement.scrollHeight > this.gridRef.nativeElement.clientHeight;
+    let hasVerticalScrollbar =
+      this.gridRef.nativeElement.scrollHeight >
+      this.gridRef.nativeElement.clientHeight;
     if (hasVerticalScrollbar) {
-       parentWidth =this.elRef.nativeElement.parentElement.offsetWidth - SCROLL_BAR;
-    } else {
-       parentWidth = this.elRef.nativeElement.parentElement.offsetWidth;
+      parentWidth = parentWidth - SCROLL_BAR;
     }
 
     let columns = this.options.columns.length || 0;
@@ -74,5 +74,25 @@ export class GridComponent implements DoCheck {
         this.renderer.setStyle(item, "width", columnsDefaultLength + "px");
       }
     }
+  }
+
+  private getParentDimension(element) {
+    let computedStyle = window.getComputedStyle(element);
+    let paddingX =
+      parseFloat(computedStyle.paddingLeft) +
+      parseFloat(computedStyle.paddingRight);
+    let paddingY =
+      parseFloat(computedStyle.paddingTop) +
+      parseFloat(computedStyle.paddingBottom);
+
+    let borderX =
+      parseFloat(computedStyle.borderLeftWidth) +
+      parseFloat(computedStyle.borderRightWidth);
+    let borderY =
+      parseFloat(computedStyle.borderTopWidth) +
+      parseFloat(computedStyle.borderBottomWidth);
+
+    // Element width minus padding and border
+    return element.offsetWidth - paddingX - borderX;
   }
 }
