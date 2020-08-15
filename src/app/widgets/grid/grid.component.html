@@ -1,14 +1,15 @@
-<div class='grid' (window:resize)="onResize(event)" #gridRef>
+<div class='grid' (window:resize)='onResize(event)' #gridRef>
 	<div class='header'>
 		<div class='header-item' *ngFor="let column of options.columns">
 			{{column.displayName}}
 
 		</div>
 	</div>
-	<div class='rows' *ngFor="let row of data">
-		<div class='row-item' *ngFor="let column of options.columns">
+<div class='body'>
+	<div class='rows' *ngFor='let row of data'>
+		<div class='row-item' *ngFor='let column of options.columns'>
 			{{row[column.field]}}
 		</div>
 	</div>
-
+</div>
 </div>
