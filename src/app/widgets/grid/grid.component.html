@@ -1,4 +1,4 @@
-<div class='grid'>
+<div class='grid' (window:resize)="onResize(eve)">
 	<div class='header'>
 		<div class='header-item' *ngFor="let column of options.columns">
 			{{column.displayName}}
