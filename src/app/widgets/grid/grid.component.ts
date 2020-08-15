@@ -4,7 +4,8 @@ import {
   ElementRef,
   Renderer2,
   HostListener,
-  DoCheck
+  DoCheck,
+  ViewChild
 } from "@angular/core";
 
 @Component({
@@ -12,21 +13,20 @@ import {
   templateUrl: "./grid.component.html",
   styleUrls: ["./grid.component.css"]
 })
-export class GridComponent
-  implements OnInit, AfterViewInit, AfterViewChecked, DoCheck {
-
+export class GridComponent implements DoCheck {
   private firstLoad = true;
+
+  constructor(private elRef: ElementRef, private renderer: Renderer2) {}
 
   @Input() data: Array<Object>;
   @Input() options: any;
-  @HostListener('window:resize', ['$event'])
+  @ViewChild("gridRef", { static: false }) gridRef: ElementRef;
+  @HostListener("window:resize", ["$event"])
   onResize(event) {
     console.log("grid resize");
     this.firstLoad = false;
     this.setDefaultDimenstions();
   }
-
-  constructor(private elRef: ElementRef, private renderer: Renderer2) {}
 
   ngOnInit() {
     console.log("grid onInit");
@@ -35,18 +35,25 @@ export class GridComponent
     console.log("grid doCheck");
   }
   ngAfterViewInit() {
-    console.log("grid viewInit");  
+    console.log("grid viewInit");
   }
   ngAfterViewChecked() {
     console.log("grid viewChecked");
-    if (this.firstLoad) {  
-      this.setDefaultDimenstions();      
+    if (this.firstLoad) {
+      this.setDefaultDimenstions();
     }
   }
 
   private setDefaultDimenstions() {
-    let hasVerticalScrollbar = this.elRef.nativeElement.scrollHeight > this.elRef.nativeElement.clientHeight;
-    let parentWidth = this.elRef.nativeElement.parentElement.offsetWidth;
+    let parentWidth =0;
+    let SCROLL_BAR = 17;
+    let hasVerticalScrollbar = this.gridRef.nativeElement.scrollHeight > this.gridRef.nativeElement.clientHeight;
+    if (hasVerticalScrollbar) {
+       parentWidth =this.elRef.nativeElement.parentElement.offsetWidth - SCROLL_BAR;
+    } else {
+       parentWidth = this.elRef.nativeElement.parentElement.offsetWidth;
+    }
+
     let columns = this.options.columns.length || 0;
     let columnsDefaultLength = Math.floor(parentWidth / columns);
 
