@@ -46,8 +46,7 @@ export class GridComponent implements DoCheck {
     }
   }
 
-  private setDefaultDimensions(parentDimension) {
-    
+  private setDefaultDimensions(parentDimension) {    
     let parentWidth =parentDimension.width;
     let parentHeight =parentDimension.height;
     let SCROLL_BAR = 17;
@@ -62,7 +61,7 @@ export class GridComponent implements DoCheck {
     let columnsDefaultLength = Math.floor(parentWidth / columns);
 
     //set Height
-    this.renderer.setStyle(this.gridRef.nativeElement, "width", columnsDefaultLength + "px");
+    this.renderer.setStyle(this.gridRef.nativeElement, "width", parentWidth + "px");
 
     //set default header item width
     let headerItems: HTMLCollection = this.elRef.nativeElement.getElementsByClassName(
