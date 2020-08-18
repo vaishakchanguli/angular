@@ -21,11 +21,15 @@ export class GridComponent implements DoCheck {
   @Input() data: Array<Object>;
   @Input() options: any;
   @ViewChild("gridRef", { static: false }) gridRef: ElementRef;
+  @ViewChild("headRef", { static: false }) headRef: ElementRef;
+  @ViewChild("bodyRef", { static: false }) bodyRef: ElementRef;
   @HostListener("window:resize", ["$event"])
   onResize(event) {
     console.log("grid resize");
     this.firstLoad = false;
-    let parentDimension = this.getParentDimension(this.elRef.nativeElement.parentElement);
+    let parentDimension = this.getParentDimension(
+      this.elRef.nativeElement.parentElement
+    );
     this.setDefaultDimensions(parentDimension);
   }
 
@@ -41,27 +45,42 @@ export class GridComponent implements DoCheck {
   ngAfterViewChecked() {
     console.log("grid viewChecked");
     if (this.firstLoad) {
-      let parentDimension = this.getParentDimension(this.elRef.nativeElement.parentElement);
+      let parentDimension = this.getParentDimension(
+        this.elRef.nativeElement.parentElement
+      );
       this.setDefaultDimensions(parentDimension);
     }
   }
 
-  private setDefaultDimensions(parentDimension) {    
-    let parentWidth =parentDimension.width;
-    let parentHeight =parentDimension.height;
+  private setDefaultDimensions(parentDimension) {
+    let parentWidth = parentDimension.width;
+    let parentHeight = parentDimension.height;
     let SCROLL_BAR = 17;
     let hasVerticalScrollbar =
-      this.gridRef.nativeElement.scrollHeight >
-      this.gridRef.nativeElement.clientHeight;
+      this.bodyRef.nativeElement.scrollHeight >
+      this.bodyRef.nativeElement.clientHeight;
     if (hasVerticalScrollbar) {
-      parentWidth = parentWidth  - SCROLL_BAR;
+      parentWidth = parentWidth - SCROLL_BAR;
     }
 
     let columns = this.options.columns.length || 0;
     let columnsDefaultLength = Math.floor(parentWidth / columns);
 
-    //set Height
-    this.renderer.setStyle(this.gridRef.nativeElement, "width", parentWidth + "px");
+    //set grid width
+    this.renderer.setStyle(
+      this.gridRef.nativeElement,
+      'width',
+      parentDimension.width + "px"
+    );
+
+    //set grid body height
+    let headerHeight = this.headRef.nativeElement.offsetHeight;
+    let bodyHeight = parentDimension.height - headerHeight;
+    this.renderer.setStyle(
+      this.bodyRef.nativeElement,
+      'height',
+     bodyHeight + "px"
+    );
 
     //set default header item width
     let headerItems: HTMLCollection = this.elRef.nativeElement.getElementsByClassName(
@@ -100,8 +119,8 @@ export class GridComponent implements DoCheck {
 
     // Element width and height minus padding and border
     return {
-      width :element.offsetWidth - paddingX - borderX,
+      width: element.offsetWidth - paddingX - borderX,
       height: element.offsetHeight - paddingY - borderY
-    }
+    };
   }
 }
