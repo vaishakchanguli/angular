@@ -17,13 +17,15 @@ import {
   templateUrl: "./tile.directive.html"
 })
 export class TileComponent implements OnInit, OnChanges, DoCheck {
-private hasVerticalScroll = false;
+  private hasVerticalScroll: Boolean = false;
+  private TILE_HEIGHT: Number = 115;
+  
   @Input() tiles: Array<Object>;
   @Input() tileOptions: Object;
   @ViewChild("tileRef", { static: false }) tileRef: ElementRef;
   @HostListener("window:resize", ["$event"])
   onResize(event) {
-    console.log("tile resize");    
+    console.log("tile resize");
     this.setContainerWidth();
   }
 
@@ -44,12 +46,17 @@ private hasVerticalScroll = false;
 
   ngAfterViewinit() {
     this.setContainerWidth();
+    this.loadDataToView();
   }
 
   private setContainerWidth() {
     this.hasVerticalScroll =
       this.tileRef.nativeElement.scrollHeight >
-      this.tileRef.nativeElement.clientHeight;      
+      this.tileRef.nativeElement.clientHeight;
+  }
+
+  private loadDataToView() {
+    this.tileRef.nativeElement.clientHeight;
   }
 
   private setDefaultOptions() {
