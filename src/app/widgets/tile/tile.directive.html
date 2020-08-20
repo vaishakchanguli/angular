@@ -1,6 +1,6 @@
-<div class="compact-tile-layout">
+<div class="compact-tile-layout" #tileRef>
 	<div *ngFor="let tile of tiles">
-		<div class="tile-container">
+		<div class="tile-container" [style.width]="hasVerticalScroll? '253px' : '270px'">
 			<div class="tile-image">
 				<i class="fa fa-cogs"></i>
 			</div>

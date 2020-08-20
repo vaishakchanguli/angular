@@ -5,7 +5,10 @@ import {
   OnChanges,
   SimpleChanges,
   DoCheck,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  ViewChild,
+  ElementRef,
+  HostListener
 } from "@angular/core";
 
 @Component({
@@ -14,8 +17,15 @@ import {
   templateUrl: "./tile.directive.html"
 })
 export class TileComponent implements OnInit, OnChanges, DoCheck {
+private hasVerticalScroll = false;
   @Input() tiles: Array<Object>;
   @Input() tileOptions: Object;
+  @ViewChild("tileRef", { static: false }) tileRef: ElementRef;
+  @HostListener("window:resize", ["$event"])
+  onResize(event) {
+    console.log("tile resize");    
+    this.setContainerWidth();
+  }
 
   constructor() {}
 
@@ -30,6 +40,16 @@ export class TileComponent implements OnInit, OnChanges, DoCheck {
   }
   ngDoCheck() {
     console.log(`child do check called`);
+  }
+
+  ngAfterViewinit() {
+    this.setContainerWidth();
+  }
+
+  private setContainerWidth() {
+    this.hasVerticalScroll =
+      this.tileRef.nativeElement.scrollHeight >
+      this.tileRef.nativeElement.clientHeight;      
   }
 
   private setDefaultOptions() {
