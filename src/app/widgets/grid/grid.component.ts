@@ -5,7 +5,9 @@ import {
   Renderer2,
   HostListener,
   DoCheck,
-  ViewChild
+  ViewChild,
+  SimpleChanges,
+  SimpleChange
 } from "@angular/core";
 
 @Component({
@@ -14,7 +16,9 @@ import {
   styleUrls: ["./grid.component.css"]
 })
 export class GridComponent implements DoCheck {
-  private firstLoad = true;
+  private firstLoad:Boolean = true;
+  private viewDataCount:Number = 0;
+  private viewData:Array<Object> = [];
 
   constructor(private elRef: ElementRef, private renderer: Renderer2) {}
 
@@ -36,11 +40,19 @@ export class GridComponent implements DoCheck {
   ngOnInit() {
     console.log("grid onInit");
   }
+   ngOnChanges(change: SimpleChanges) {
+     debugger 
+    console.log("grid onChanges");
+    this.onDataChange(change.data);
+    
+  }
+
   ngDoCheck() {
     console.log("grid doCheck");
   }
   ngAfterViewInit() {
     console.log("grid viewInit");
+    this.loadInitialViewData()
   }
   ngAfterViewChecked() {
     console.log("grid viewChecked");
@@ -122,5 +134,25 @@ export class GridComponent implements DoCheck {
       width: element.offsetWidth - paddingX - borderX,
       height: element.offsetHeight - paddingY - borderY
     };
+  }
+
+private loadInitialViewData(){
+  let ROW_HEIGHT = 30;
+  debugger
+  let bodyHeight = this.bodyRef.nativeElement.offsetHeight >30 ?this.bodyRef.nativeElement.offsetHeight:30;
+  this.viewDataCount = Math.ceil(bodyHeight/ROW_HEIGHT);
+  this.viewData = this.data ? this.data.slice(0, this.viewDataCount) : []
+}
+
+  public onScroll(event){
+    console.log('grid-scroll');
+
+
+  }
+
+  private onDataChange(data:SimpleChange){
+if(data.currentValue && data.previousValue && JSON.stringify(data.currentValue)!== JSON.stringify(data.previousValue)){
+
+}
   }
 }

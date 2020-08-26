@@ -5,8 +5,8 @@
 
 		</div>
 	</div>
-<div class='body' #bodyRef>
-	<div class='rows' *ngFor='let row of data'>
+<div class='body' #bodyRef (scroll)="onScroll($event)">
+	<div class='rows' *ngFor='let row of viewData'>
 		<div class='row-item' *ngFor='let column of options.columns'>
 			{{row[column.field]}}
 		</div>
