@@ -16,8 +16,8 @@ import {
   styleUrls: ["./grid.component.css"]
 })
 export class GridComponent implements DoCheck {
-  private firstLoad:Boolean = true;
-  private viewDataCount:Number = 0;
+  private firstLoad:boolean = true;
+  private viewDataCount:number = 0;
   private viewData:Array<Object> = [];
 
   constructor(private elRef: ElementRef, private renderer: Renderer2) {}
@@ -141,7 +141,7 @@ private loadInitialViewData(){
   debugger
   let bodyHeight = this.bodyRef.nativeElement.offsetHeight >30 ?this.bodyRef.nativeElement.offsetHeight:30;
   this.viewDataCount = Math.ceil(bodyHeight/ROW_HEIGHT);
-  this.viewData = this.data ? this.data.slice(0, this.viewDataCount) : []
+  this.viewData = this.data ? this.data.slice(0, this.viewDataCount) : []; 
 }
 
   public onScroll(event){
