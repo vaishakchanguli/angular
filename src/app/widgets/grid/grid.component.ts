@@ -16,9 +16,9 @@ import {
   styleUrls: ["./grid.component.css"]
 })
 export class GridComponent implements DoCheck {
-  private firstLoad:boolean = true;
-  private viewDataCount:number = 0;
-  private viewData:Array<Object> = [];
+  private firstLoad: boolean = true;
+  private viewDataCount: number = 0;
+  private viewData: Array<Object> = [];
 
   constructor(private elRef: ElementRef, private renderer: Renderer2) {}
 
@@ -40,11 +40,10 @@ export class GridComponent implements DoCheck {
   ngOnInit() {
     console.log("grid onInit");
   }
-   ngOnChanges(change: SimpleChanges) {
-     debugger 
+  ngOnChanges(change: SimpleChanges) {
+    debugger;
     console.log("grid onChanges");
     this.onDataChange(change.data);
-    
   }
 
   ngDoCheck() {
@@ -52,7 +51,7 @@ export class GridComponent implements DoCheck {
   }
   ngAfterViewInit() {
     console.log("grid viewInit");
-    this.loadInitialViewData()
+    this.setInitialDataCount();
   }
   ngAfterViewChecked() {
     console.log("grid viewChecked");
@@ -81,7 +80,7 @@ export class GridComponent implements DoCheck {
     //set grid width
     this.renderer.setStyle(
       this.gridRef.nativeElement,
-      'width',
+      "width",
       parentDimension.width + "px"
     );
 
@@ -90,8 +89,8 @@ export class GridComponent implements DoCheck {
     let bodyHeight = parentDimension.height - headerHeight;
     this.renderer.setStyle(
       this.bodyRef.nativeElement,
-      'height',
-     bodyHeight + "px"
+      "height",
+      bodyHeight + "px"
     );
 
     //set default header item width
@@ -136,23 +135,39 @@ export class GridComponent implements DoCheck {
     };
   }
 
-private loadInitialViewData(){
-  let ROW_HEIGHT = 30;
-  debugger
-  let bodyHeight = this.bodyRef.nativeElement.offsetHeight >30 ?this.bodyRef.nativeElement.offsetHeight:30;
-  this.viewDataCount = Math.ceil(bodyHeight/ROW_HEIGHT);
-  this.viewData = this.data ? this.data.slice(0, this.viewDataCount) : []; 
-}
-
-  public onScroll(event){
-    console.log('grid-scroll');
-
-
+  private setInitialDataCount() {
+    let ROW_HEIGHT = 30;
+    let bodyHeight =
+      this.bodyRef.nativeElement.offsetHeight > 30
+        ? this.bodyRef.nativeElement.offsetHeight
+        : 30;
+    this.viewDataCount = Math.ceil(bodyHeight / ROW_HEIGHT) + ROW_HEIGHT;
   }
 
-  private onDataChange(data:SimpleChange){
-if(data.currentValue && data.previousValue && JSON.stringify(data.currentValue)!== JSON.stringify(data.previousValue)){
+  private setViewData() {
+    this.viewData = this.data ? this.data.slice(0, this.viewDataCount) : [];
+  }
+  public onScroll(event) {
+    console.log("grid-scroll");
+    let scrollPercentage =
+      (this.bodyRef.nativeElement.scrollTop /
+        (this.bodyRef.nativeElement.scrollHeight -this.bodyRef.nativeElement.clientHeight)) *
+      100;
+      console.log('scroll'+scrollPercentage);
+    if (scrollPercentage < 80) {
+      return;
+    }
+  
+   this.viewDataCount += 10;
+    this.setViewData();
+  }
 
-}
+  private onDataChange(data: SimpleChange) {
+    if (
+      data.currentValue &&
+      JSON.stringify(data.currentValue) !== JSON.stringify(data.previousValue)
+    ) {
+      this.setViewData();
+    }
   }
 }
